@@ -117,6 +117,49 @@ input[type=time]::-webkit-calendar-picker-indicator{display:none}
   background:#059669;color:#fff;padding:10px 16px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.45);
   display:flex;align-items:center;gap:8px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:60;white-space:nowrap}
 #toast.show{opacity:1}
+
+/* Ucus cubugu */
+.fbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.fst{min-width:0}
+.fst .t{font-size:11px;color:var(--muted)}
+.fst .n{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;vertical-align:middle;margin-left:6px;letter-spacing:.03em}
+.tag.draft{background:rgba(251,191,36,.15);color:var(--amber)}
+.tag.saved{background:rgba(52,211,153,.15);color:var(--green)}
+.tag.open{background:rgba(56,189,248,.18);color:var(--brand-txt)}
+.lbtn{position:relative;background:#334155;color:var(--text);border-radius:10px;padding:0 12px;min-height:44px;font-weight:600;font-size:13px;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.lbtn:active{background:#475569}
+.lbtn .cnt{background:var(--brand);color:#fff;border-radius:99px;min-width:20px;height:20px;padding:0 6px;font-size:11px;display:flex;align-items:center;justify-content:center}
+/* Alt butonlar */
+.acts{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.acts .copy{margin-top:0}
+.save{width:100%;background:#059669;color:#fff;font-weight:700;font-size:15px;padding:15px 16px;border-radius:14px;
+  box-shadow:0 6px 16px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;gap:8px}
+.save:active{background:#047857;transform:scale(.99)}
+.copy.alt{background:#334155}
+.copy.alt:active{background:#475569}
+/* Ucus listesi (alttan acilan panel) */
+#sheetBg{position:fixed;inset:0;background:rgba(2,6,23,.65);z-index:70;display:none}
+#sheetBg.on{display:block}
+#sheet{position:fixed;left:0;right:0;bottom:0;z-index:71;background:#0f172a;border-top:1px solid #334155;border-radius:18px 18px 0 0;
+  max-height:85vh;display:none;flex-direction:column;padding-bottom:env(safe-area-inset-bottom);max-width:720px;margin:0 auto}
+#sheet.on{display:flex}
+.sh-h{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 10px}
+.sh-h h3{font-size:16px}
+.sh-x{width:40px;height:40px;border-radius:10px;background:#1e293b;font-size:18px}
+.sh-new{margin:0 14px 10px;background:var(--brand);color:#fff;font-weight:700;border-radius:12px;padding:13px;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px}
+.sh-new:active{background:var(--brand-lo)}
+#flightList{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 14px 14px;display:flex;flex-direction:column;gap:8px}
+.fi{display:flex;align-items:stretch;background:rgba(30,41,59,.8);border:1px solid #334155;border-radius:12px;overflow:hidden}
+.fi.cur{border-color:var(--brand-hi)}
+.fi .open{flex:1;min-width:0;text-align:left;background:none;padding:10px 12px}
+.fi .open:active{background:rgba(51,65,85,.6)}
+.fi .l1{font-size:15px;font-weight:700;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.fi .l2{font-size:12px;color:var(--muted);margin-top:3px}
+.fi .l3{font-size:11px;color:var(--dim);margin-top:3px}
+.fi .del{width:48px;background:none;color:var(--red);font-size:17px;border-left:1px solid #334155}
+.fi .del:active{background:rgba(251,113,133,.2)}
+.empty{color:var(--muted);text-align:center;padding:24px 8px;font-size:14px}
 </style>
 </head>
 <body>
@@ -133,6 +176,10 @@ input[type=time]::-webkit-calendar-picker-indicator{display:none}
   <symbol id="i-access" viewBox="0 0 24 24"><circle cx="16" cy="4" r="1"/><path d="m18 19 1-7-6 1"/><path d="m5 8 3-3 5.5 3-2.36 3.5"/><path d="M4.24 14.5a5 5 0 0 0 6.88 6"/><path d="M13.76 17.5a5 5 0 0 0-6.88-6"/></symbol>
   <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="14" height="14" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></symbol>
 </svg>
 
 <header>
@@ -146,12 +193,19 @@ input[type=time]::-webkit-calendar-picker-indicator{display:none}
     </div>
     <div class="hd-r">
       <div class="clock" id="liveUtcClock">00:00:00 UTC</div>
-      <button class="reset" onclick="confirmReset()" aria-label="Sıfırla"><svg class="ic"><use href="#i-reset"/></svg></button>
+      <button class="reset" onclick="confirmReset()" aria-label="Bu uçuşun formunu temizle" title="Bu uçuşun formunu temizle"><svg class="ic"><use href="#i-reset"/></svg></button>
     </div>
   </div>
 </header>
 
 <main>
+  <div class="card fbar">
+    <div class="fst">
+      <div class="t" id="fbarT">Açık uçuş</div>
+      <div class="n" id="fbarN">Yeni uçuş</div>
+    </div>
+    <button class="lbtn" onclick="openSheet()"><svg class="ic"><use href="#i-list"/></svg>Uçuşlar<span class="cnt" id="fcnt">0</span></button>
+  </div>
   <div class="cols">
 
     <!-- SOL -->
@@ -260,11 +314,24 @@ input[type=time]::-webkit-calendar-picker-indicator{display:none}
     </div>
   </div>
 
-  <button class="copy" onclick="generateSummary()">
-    <svg class="ic"><use href="#i-copy"/></svg>
-    <span>Mesaj Özetini Kopyala (WhatsApp / SITA)</span>
-  </button>
+  <div class="acts">
+    <button class="save" onclick="saveAndNew()">
+      <svg class="ic"><use href="#i-save"/></svg>
+      <span>Kaydet ve Yeni Uçuş Aç</span>
+    </button>
+    <button class="copy alt" onclick="generateSummary()">
+      <svg class="ic"><use href="#i-copy"/></svg>
+      <span>Mesaj Özetini Kopyala (WhatsApp / SITA)</span>
+    </button>
+  </div>
 </main>
+
+<div id="sheetBg" onclick="closeSheet()"></div>
+<div id="sheet" role="dialog" aria-label="Kayıtlı uçuşlar">
+  <div class="sh-h"><h3>Uçuşlar</h3><button class="sh-x" onclick="closeSheet()" aria-label="Kapat">✕</button></div>
+  <button class="sh-new" onclick="newFlight()"><svg class="ic"><use href="#i-plus"/></svg>Yeni Uçuş</button>
+  <div id="flightList"></div>
+</div>
 
 <div id="toast"><svg class="ic"><use href="#i-check"/></svg><span id="toastMsg">Tamam</span></div>
 
@@ -272,10 +339,7 @@ input[type=time]::-webkit-calendar-picker-indicator{display:none}
 /* ---------- Zaman alanlari ---------- */
 var timeFields = [
   {id:'time_ata',         label:'ATA (In-Block)'},
-  {id:'time_door_open',   label:'Kapı Açılış'},
   {id:'time_deboard_end', label:'Deboard Bitiş'},
-  {id:'time_fuel_start',  label:'Yakıt Başlangıç'},
-  {id:'time_fuel_end',    label:'Yakıt Bitiş'},
   {id:'time_board_start', label:'Boarding Başlangıç'},
   {id:'time_board_end',   label:'Boarding Bitiş'},
   {id:'time_door_close',  label:'Kapı Kapanış'},
@@ -318,35 +382,140 @@ function changeCounter(id,delta){
   saveData();
 }
 
-/* ---------- Kaydet / yukle ---------- */
+/* ---------- Ucus kayitlari ---------- */
 var fieldIds=[
   'flightNo','registration','acType','stand','origin','destination',
-  'time_ata','time_door_open','time_deboard_end','time_fuel_start','time_fuel_end',
+  'time_ata','time_deboard_end',
   'time_board_start','time_board_end','time_door_close','time_atd',
   'fuelRemaining','fuelBlock','paxInbound','paxOutbound','baggageInbound','baggageOutbound',
   'prm_wchr','prm_wchs','prm_wchc','specialPax','notes'
 ];
-var KEY='turnaround_log_data';
+var KEY='turnaround_flights_v2', OLD='turnaround_log_data';
+var store={active:null,flights:[]};
+
+function isPrm(id){return id.indexOf('prm_')===0;}
+function readForm(){var d={};fieldIds.forEach(function(id){var el=document.getElementById(id); if(el) d[id]=el.value;});return d;}
+function writeForm(d){fieldIds.forEach(function(id){var el=document.getElementById(id); if(el) el.value=(d&&d[id]!==undefined)?d[id]:(isPrm(id)?'0':'');});}
+function isBlank(d){return fieldIds.every(function(id){var v=String((d&&d[id])||'').trim(); return isPrm(id)?(v===''||v==='0'):v==='';});}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+function newId(){return 'f'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+function makeFlight(data){return {id:newId(),created:Date.now(),updated:Date.now(),saved:false,data:data||{}};}
+function getFlight(id){for(var i=0;i<store.flights.length;i++){if(store.flights[i].id===id) return store.flights[i];}return null;}
+function getActive(){return getFlight(store.active);}
+function pruneBlank(keepId){store.flights=store.flights.filter(function(f){return f.id===keepId||!isBlank(f.data);});}
+function esc(t){return String(t).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 
 function saveData(){
-  var data={};
-  fieldIds.forEach(function(id){var el=document.getElementById(id); if(el) data[id]=el.value;});
-  try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}
+  var f=getActive(); if(!f) return;
+  f.data=readForm(); f.updated=Date.now();
+  persist(); renderBar();
 }
+
 function loadData(){
-  var s=null;
-  try{s=localStorage.getItem(KEY);}catch(e){}
-  if(!s) return;
-  try{
-    var data=JSON.parse(s);
-    fieldIds.forEach(function(id){var el=document.getElementById(id); if(el && data[id]!==undefined) el.value=data[id];});
-  }catch(e){}
+  var raw=null;
+  try{raw=localStorage.getItem(KEY);}catch(e){}
+  if(raw){
+    try{var st=JSON.parse(raw); if(st&&Array.isArray(st.flights)) store=st;}catch(e){}
+  }else{
+    /* eski tek-ucus verisini ilk kayit olarak al */
+    var old=null;
+    try{old=JSON.parse(localStorage.getItem(OLD)||'null');}catch(e){}
+    if(old&&!isBlank(old)){var of=makeFlight(old); store.flights.push(of); store.active=of.id;}
+  }
+  if(!getActive()){var nf=makeFlight(); store.flights.push(nf); store.active=nf.id;}
+  writeForm(getActive().data);
+  persist(); renderBar();
+}
+
+function flightTitle(d){return (String(d.flightNo||'').trim().toUpperCase())||'Adsız uçuş';}
+function flightRoute(d){
+  var o=String(d.origin||'').trim().toUpperCase(), t=String(d.destination||'').trim().toUpperCase();
+  var r=(o||t)?(o||'?')+' → '+(t||'?'):'';
+  var reg=String(d.registration||'').trim().toUpperCase();
+  return [r,reg].filter(Boolean).join(' · ');
+}
+function fmtDate(ts){
+  try{return new Date(ts).toLocaleString('tr-TR',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});}
+  catch(e){return new Date(ts).toISOString().slice(0,16).replace('T',' ');}
+}
+function shownFlights(){return store.flights.filter(function(f){return f.id===store.active||!isBlank(f.data);});}
+
+function renderBar(){
+  var f=getActive(); if(!f) return;
+  var list=shownFlights();
+  document.getElementById('fcnt').textContent=list.length;
+  var blank=isBlank(f.data);
+  document.getElementById('fbarT').innerHTML=(f.saved?'Kayıtlı uçuşu düzenliyorsun':(blank?'Yeni uçuş':'Taslak'));
+  document.getElementById('fbarN').textContent=blank?'Bilgileri gir':(flightTitle(f.data)+(flightRoute(f.data)?'  ·  '+flightRoute(f.data):''));
+}
+
+function renderList(){
+  var list=shownFlights().slice().sort(function(a,b){return b.created-a.created;});
+  var box=document.getElementById('flightList');
+  if(!list.length){box.innerHTML='<div class="empty">Henüz kayıtlı uçuş yok.</div>';return;}
+  box.innerHTML=list.map(function(f){
+    var d=f.data, cur=f.id===store.active;
+    var times=[];
+    if(d.time_ata) times.push('ATA '+esc(d.time_ata));
+    if(d.time_atd) times.push('ATD '+esc(d.time_atd));
+    var tags=(cur?'<span class="tag open">AÇIK</span>':'')+(f.saved?'<span class="tag saved">KAYITLI</span>':'<span class="tag draft">TASLAK</span>');
+    return '<div class="fi'+(cur?' cur':'')+'">'+
+      '<button class="open" data-open="'+f.id+'"><div class="l1">'+esc(flightTitle(d))+tags+'</div>'+
+      (flightRoute(d)?'<div class="l2">'+esc(flightRoute(d))+'</div>':'')+
+      '<div class="l3">'+esc(fmtDate(f.created))+(times.length?'  ·  '+times.join('  '):'')+'</div></button>'+
+      '<button class="del" data-del="'+f.id+'" aria-label="Sil"><svg class="ic"><use href="#i-trash"/></svg></button></div>';
+  }).join('');
+}
+document.getElementById('flightList').addEventListener('click',function(e){
+  var o=e.target.closest('[data-open]'), x=e.target.closest('[data-del]');
+  if(o) openFlight(o.getAttribute('data-open'));
+  else if(x) deleteFlight(x.getAttribute('data-del'));
+});
+
+function openSheet(){saveData(); renderList(); document.getElementById('sheetBg').classList.add('on'); document.getElementById('sheet').classList.add('on'); document.body.style.overflow='hidden';}
+function closeSheet(){document.getElementById('sheetBg').classList.remove('on'); document.getElementById('sheet').classList.remove('on'); document.body.style.overflow='';}
+
+function activate(f){
+  store.active=f.id; pruneBlank(f.id);
+  writeForm(f.data); persist(); renderBar();
+  window.scrollTo(0,0);
+}
+function openFlight(id){
+  saveData();
+  var f=getFlight(id); if(!f) return;
+  activate(f); closeSheet();
+  showToast('Uçuş açıldı: '+flightTitle(f.data));
+}
+function startBlank(){
+  var nf=makeFlight(); store.flights.push(nf);
+  activate(nf);
+}
+function saveAndNew(){
+  var d=readForm();
+  if(isBlank(d)){showToast('Önce uçuş bilgilerini gir'); return;}
+  var f=getActive(); f.data=d; f.saved=true; f.savedAt=Date.now(); f.updated=Date.now();
+  startBlank();
+  showToast('Kaydedildi · yeni uçuş açıldı');
+}
+function newFlight(){
+  saveData();
+  if(isBlank(getActive().data)){closeSheet(); showToast('Zaten boş bir uçuştasın'); return;}
+  startBlank(); closeSheet(); showToast('Yeni uçuş açıldı');
+}
+function deleteFlight(id){
+  var f=getFlight(id); if(!f) return;
+  if(!confirm(flightTitle(f.data)+' uçuşunu silmek istiyor musunuz?')) return;
+  store.flights=store.flights.filter(function(x){return x.id!==id;});
+  if(store.active===id){
+    var rest=shownFlights().sort(function(a,b){return b.created-a.created;});
+    if(rest.length){store.active=rest[0].id;} else {var nf=makeFlight(); store.flights.push(nf); store.active=nf.id;}
+    writeForm(getActive().data);
+  }
+  persist(); renderBar(); renderList();
 }
 function confirmReset(){
-  if(confirm('Tüm formu temizlemek istiyor musunuz?')){
-    try{localStorage.removeItem(KEY);}catch(e){}
-    fieldIds.forEach(function(id){var el=document.getElementById(id); if(el) el.value=id.indexOf('prm_')===0?'0':'';});
-    showToast('Form temizlendi');
+  if(confirm('Bu uçuşun formunu temizlemek istiyor musunuz?')){
+    writeForm({}); saveData(); showToast('Form temizlendi');
   }
 }
 
@@ -364,9 +533,7 @@ function generateSummary(){
 '*Parkur:* '+v('origin')+' ➡️ '+v('destination')+'\n\n'+
 '⏱️ *ZAMAN ÇİZELGESİ (UTC)*\n'+
 '• ATA (In-Block): '+v('time_ata')+'\n'+
-'• Kapı Açılış: '+v('time_door_open')+'\n'+
 '• Deboard Bitiş: '+v('time_deboard_end')+'\n'+
-'• Yakıt: '+v('time_fuel_start')+' - '+v('time_fuel_end')+'\n'+
 '• Boarding: '+v('time_board_start')+' - '+v('time_board_end')+'\n'+
 '• Kapı Kapanış: '+v('time_door_close')+'\n'+
 '• ATD (Off-Block): '+v('time_atd')+'\n\n'+

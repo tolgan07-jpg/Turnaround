@@ -1,5 +1,7 @@
 // Turnaround Log - cevrimdisi onbellek
-const CACHE = 'turnaround-v1';
+// Internet varsa her zaman guncel dosyayi alir, yoksa (veya baglanti cok yavassa) kayitli kopyayi acar.
+const CACHE = 'turnaround-v3';
+const TIMEOUT_MS = 3000;
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
@@ -17,21 +19,26 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-// Once onbellekten ver, arkada guncelle
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
   e.respondWith(
-    caches.match(e.request).then((cached) => {
-      const net = fetch(e.request)
+    new Promise((resolve) => {
+      const fromCache = () =>
+        caches.match(e.request).then((r) => r || caches.match('index.html'));
+      const timer = setTimeout(() => fromCache().then((r) => r && resolve(r)), TIMEOUT_MS);
+      fetch(e.request)
         .then((res) => {
+          clearTimeout(timer);
           if (res && res.ok) {
             const copy = res.clone();
             caches.open(CACHE).then((c) => c.put(e.request, copy));
           }
-          return res;
+          resolve(res);
         })
-        .catch(() => cached || caches.match('index.html'));
-      return cached || net;
+        .catch(() => {
+          clearTimeout(timer);
+          fromCache().then((r) => resolve(r || Response.error()));
+        });
     })
   );
 });
