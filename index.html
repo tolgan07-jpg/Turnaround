@@ -24,9 +24,9 @@
 html{-webkit-text-size-adjust:100%;color-scheme:dark}
 body{
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  background:var(--bg);color:var(--text);font-size:14px;line-height:1.4;
-  min-height:100vh;-webkit-tap-highlight-color:transparent;
-  padding-bottom:calc(24px + env(safe-area-inset-bottom));
+  background:var(--bg);color:var(--text);font-size:14px;line-height:1.35;min-height:100vh;
+  -webkit-tap-highlight-color:transparent;
+  padding-bottom:calc(78px + env(safe-area-inset-bottom));
 }
 button{font:inherit;color:inherit;border:0;cursor:pointer;touch-action:manipulation}
 .ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;vertical-align:-.125em}
@@ -34,165 +34,151 @@ button{font:inherit;color:inherit;border:0;cursor:pointer;touch-action:manipulat
 /* Header */
 header{position:sticky;top:0;z-index:50;background:rgba(30,41,59,.95);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   border-bottom:1px solid #334155;padding-top:env(safe-area-inset-top)}
-.hd{max-width:1100px;margin:0 auto;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.brand{display:flex;align-items:center;gap:8px}
-.logo{width:34px;height:34px;border-radius:9px;background:var(--brand);display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.35)}
-.brand h1{font-size:14px;font-weight:700;letter-spacing:.02em;line-height:1}
-.brand p{font-size:11px;color:var(--muted);margin-top:3px}
-.hd-r{display:flex;align-items:center;gap:8px}
-.clock{background:rgba(2,6,23,.7);border:1px solid #334155;border-radius:6px;padding:7px 8px;
+.hd{max-width:560px;margin:0 auto;padding:6px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.brand{display:flex;align-items:center;gap:8px;min-width:0}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--brand);display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;flex-shrink:0}
+.brand div{min-width:0}
+.brand h1{font-size:14px;font-weight:700;line-height:1.1}
+.brand p{font-size:11px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.clock{background:rgba(2,6,23,.7);border:1px solid #334155;border-radius:6px;padding:7px 8px;flex-shrink:0;
   font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;font-weight:700;color:var(--brand-txt);white-space:nowrap}
-.reset{width:36px;height:36px;border-radius:8px;background:rgba(51,65,85,.5);color:#cbd5e1;font-size:15px;display:flex;align-items:center;justify-content:center}
-.reset:active{background:rgba(251,113,133,.25);color:var(--red)}
 
-/* Layout */
-main{max-width:1100px;margin:0 auto;padding:12px}
-.cols{display:grid;grid-template-columns:1fr;gap:12px}
-.col{display:flex;flex-direction:column;gap:12px;min-width:0}
-@media(min-width:1024px){.cols{grid-template-columns:5fr 7fr}}
-.card{background:var(--card);border:1px solid var(--card-b);border-radius:14px;padding:12px}
-.card.stack>*+*{margin-top:12px}
-.sec{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
-  margin-bottom:8px;display:flex;align-items:center;gap:6px;justify-content:space-between}
-.sec .l{display:flex;align-items:center;gap:6px}
-.sec .ic{color:var(--brand-txt);font-size:14px}
-.sec small{font-size:10px;font-weight:500;text-transform:none;letter-spacing:0;color:var(--dim)}
-.sep{border-top:1px solid rgba(51,65,85,.5);padding-top:10px}
+/* Duzen */
+main{max-width:560px;margin:0 auto;padding:10px 12px;display:flex;flex-direction:column;gap:10px}
+.card{background:var(--card);border:1px solid var(--card-b);border-radius:14px;padding:10px}
 .g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.pair{display:flex;gap:4px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.row+.row{margin-top:8px}
+.pair{display:flex;gap:6px}
 .pair>*{width:50%;min-width:0}
-
-/* Fields */
 label{display:block;font-size:11px;color:var(--muted);margin-bottom:3px}
+.sec span{white-space:nowrap}
+.sec{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.sec small{font-size:10px;font-weight:500;text-transform:none;letter-spacing:0;color:var(--dim);text-align:right}
+
 input,textarea{
   width:100%;min-width:0;background:var(--field);color:var(--text);border:1px solid var(--field-b);border-radius:10px;
-  padding:9px 10px;font:inherit;font-size:16px; /* 16px: iOS zoom yapmasin */
-  outline:none;-webkit-appearance:none;appearance:none;border-radius:10px
+  padding:0 10px;height:46px;font:inherit;font-size:16px;outline:none;-webkit-appearance:none;appearance:none
 }
+textarea{height:auto;padding:9px 10px;resize:none;line-height:1.35}
 input:focus,textarea:focus{border-color:var(--brand-hi)}
 input::placeholder,textarea::placeholder{color:#475569}
 .up{text-transform:uppercase}
 .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
 .b{font-weight:700}
+.big{font-size:20px;font-weight:700}
 .green{color:var(--green)}
-textarea{resize:none;line-height:1.35}
 input[type=number]{-moz-appearance:textfield}
 input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 
-/* Time boxes */
-.tg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.tg>*{min-width:0}
-@media(min-width:640px){.tg{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.tb{background:rgba(2,6,23,.5);border:1px solid rgba(51,65,85,.5);border-radius:10px;padding:8px}
-.tb label{margin-bottom:5px}
-.tr{display:flex;gap:4px;min-width:0}
-.tr input[type=time]{flex:1 1 0;width:0;min-width:0}
-.tr input[type=time]{
-  background:#0f172a;padding:8px 6px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;color:var(--amber);
-  min-height:40px;text-align:left;-webkit-appearance:none;appearance:none
-}
-.tr input[type=time].end{color:var(--green)}
-input[type=time]::-webkit-calendar-picker-indicator{display:none}
-.tr input[type=time]{padding:8px 4px 8px 8px}
-.now{background:var(--brand);color:#fff;border-radius:10px;padding:0 9px;font-size:12px;font-weight:600;flex-shrink:0}
-.now:active{background:var(--brand-lo)}
+/* SCF */
+.seg{display:flex;background:#020617;border:1px solid #334155;border-radius:10px;padding:3px;gap:3px;height:46px}
+.seg button{flex:1;border-radius:8px;background:none;color:var(--muted);font-weight:600;font-size:13px}
+.seg button.on.yes{background:#059669;color:#fff}
+.seg button.on.no{background:#e11d48;color:#fff}
 
-/* PRM */
-.pg{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
-@media(min-width:520px){.pg{grid-template-columns:repeat(3,1fr)}}
-.pb{background:rgba(2,6,23,.6);border:1px solid rgba(51,65,85,.5);border-radius:10px;padding:8px;display:flex;align-items:center;justify-content:space-between}
-.pb span{font-size:12px;font-weight:700}
-.ct{display:flex;align-items:center;gap:4px}
-.ct button{width:42px;height:42px;background:#1e293b;border-radius:10px;font-size:20px;font-weight:700;line-height:1}
+/* Saat kutulari: bos kutuya dokun = simdi, dolu kutuya dokun = duzenle */
+.tbox{position:relative;height:68px;border-radius:12px;background:#020617;border:1px solid #334155;padding:7px 10px;overflow:hidden}
+.tl{font-size:11px;color:var(--muted);white-space:nowrap}
+.tv{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:24px;font-weight:700;color:var(--amber);line-height:1.2;margin-top:2px}
+.tbox.end .tv{color:var(--green)}
+.tbox.empty .tv{color:#334155}
+.tbox input[type=time]{position:absolute;inset:0;width:100%;height:100%;opacity:0;z-index:2;border-radius:12px}
+.tbox.empty input[type=time]{pointer-events:none}
+.tnow{position:absolute;inset:0;z-index:3;background:none;display:none}
+.tbox.empty .tnow{display:block}
+.tnow:active{background:rgba(2,132,199,.35)}
+.tclr{position:absolute;top:0;right:0;width:34px;height:34px;z-index:4;background:none;color:var(--dim);font-size:13px;display:none}
+.tbox:not(.empty) .tclr{display:block}
+.sec small b{color:var(--brand-txt);font-size:12px}
+
+/* Diger detaylar */
+details.more{background:var(--card);border:1px solid var(--card-b);border-radius:14px}
+details.more>summary{list-style:none;cursor:pointer;min-height:48px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;font-weight:600;font-size:14px;color:var(--muted)}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::after{content:"▾";font-size:16px;transition:transform .2s}
+details.more[open]>summary::after{transform:rotate(180deg)}
+.dot{display:none;width:8px;height:8px;border-radius:50%;background:var(--brand-txt);margin-left:8px}
+.dot.on{display:inline-block;animation:blink 1s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.12}}
+@media(prefers-reduced-motion:reduce){.dot.on{animation:none}}
+.mbody{padding:0 10px 12px;display:flex;flex-direction:column;gap:10px}
+.hr{border-top:1px solid rgba(51,65,85,.5)}
+.pb{background:rgba(2,6,23,.6);border:1px solid rgba(51,65,85,.5);border-radius:10px;padding:6px 4px;text-align:center}
+.pb span{font-size:11px;font-weight:700;display:block;margin-bottom:2px}
+.ct{display:flex;align-items:center;justify-content:center}
+.ct button{width:38px;height:42px;background:#1e293b;border-radius:8px;font-size:18px;font-weight:700;line-height:1}
 .ct button:active{background:#475569}
-.ct input{width:44px;background:transparent;border:0;text-align:center;font-weight:700;color:var(--brand-txt);padding:0}
+.ct input{width:30px;height:42px;padding:0;background:transparent;border:0;text-align:center;font-weight:700;color:var(--brand-txt)}
+.clear{height:44px;border-radius:10px;background:none;border:1px solid rgba(251,113,133,.5);color:var(--red);font-weight:600}
+.clear:active{background:rgba(251,113,133,.2)}
 
-/* Copy button */
-.copy{margin-top:12px;width:100%;background:var(--brand);color:#fff;font-weight:600;font-size:15px;padding:15px 16px;border-radius:14px;
-  box-shadow:0 6px 16px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;gap:8px}
-.copy:active{background:var(--brand-lo);transform:scale(.99)}
+/* Alt cubuk (basparmak bolgesi) */
+#bar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(15,23,42,.97);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border-top:1px solid #334155;padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
+#bar .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1.5fr;gap:8px}
+#bar button{height:52px;border-radius:12px;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px;position:relative}
+.b-list{background:#334155}.b-list:active{background:#475569}
+.b-copy{background:#334155}.b-copy:active{background:#475569}
+.b-save{background:#059669;font-size:14px!important}.b-save:active{background:#047857}
+.cnt{position:absolute;top:-6px;right:-4px;background:var(--brand);color:#fff;border-radius:99px;min-width:20px;height:20px;padding:0 5px;font-size:11px;display:flex;align-items:center;justify-content:center;border:2px solid #0f172a}
 
 /* Toast */
-#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);
+#toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom));transform:translateX(-50%);
   background:#059669;color:#fff;padding:10px 16px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.45);
-  display:flex;align-items:center;gap:8px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:60;white-space:nowrap}
+  display:flex;align-items:center;gap:8px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:90;white-space:nowrap}
 #toast.show{opacity:1}
 
-/* Ucus cubugu */
-.fbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
-.fst{min-width:0}
-.fst .t{font-size:11px;color:var(--muted)}
-.fst .n{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;vertical-align:middle;margin-left:6px;letter-spacing:.03em}
+/* Ucus listesi */
+.tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;letter-spacing:.03em}
 .tag.draft{background:rgba(251,191,36,.15);color:var(--amber)}
 .tag.saved{background:rgba(52,211,153,.15);color:var(--green)}
 .tag.scfy{background:rgba(52,211,153,.15);color:var(--green)}
 .tag.scfn{background:rgba(251,113,133,.18);color:var(--red)}
 .tag.scfu{background:rgba(148,163,184,.15);color:var(--muted)}
-.fi .l4{margin-top:6px}
-.fi .l4 .tag{margin-left:0;font-size:11px;padding:3px 9px}
 .tag.open{background:rgba(56,189,248,.18);color:var(--brand-txt)}
-.lbtn{position:relative;background:#334155;color:var(--text);border-radius:10px;padding:0 12px;min-height:44px;font-weight:600;font-size:13px;display:flex;align-items:center;gap:6px;flex-shrink:0}
-.lbtn:active{background:#475569}
-.lbtn .cnt{background:var(--brand);color:#fff;border-radius:99px;min-width:20px;height:20px;padding:0 6px;font-size:11px;display:flex;align-items:center;justify-content:center}
-/* Alt butonlar */
-.acts{display:flex;flex-direction:column;gap:10px;margin-top:12px}
-.acts .copy{margin-top:0}
-.save{width:100%;background:#059669;color:#fff;font-weight:700;font-size:15px;padding:15px 16px;border-radius:14px;
-  box-shadow:0 6px 16px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;gap:8px}
-.save:active{background:#047857;transform:scale(.99)}
-.copy.alt{background:#334155}
-.copy.alt:active{background:#475569}
-/* Ucus listesi (alttan acilan panel) */
 #sheetBg{position:fixed;inset:0;background:rgba(2,6,23,.65);z-index:70;display:none}
 #sheetBg.on{display:block}
 #sheet{position:fixed;left:0;right:0;bottom:0;z-index:71;background:#0f172a;border-top:1px solid #334155;border-radius:18px 18px 0 0;
-  max-height:85vh;display:none;flex-direction:column;padding-bottom:env(safe-area-inset-bottom);max-width:720px;margin:0 auto}
+  max-height:88vh;display:none;flex-direction:column;padding-bottom:env(safe-area-inset-bottom);max-width:560px;margin:0 auto}
 #sheet.on{display:flex}
-.sh-h{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 10px}
+.sh-h{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 8px}
 .sh-h h3{font-size:16px}
 .sh-x{width:40px;height:40px;border-radius:10px;background:#1e293b;font-size:18px}
-.sh-new{margin:0 14px 10px;background:var(--brand);color:#fff;font-weight:700;border-radius:12px;padding:13px;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px}
+.sh-new{margin:0 14px 10px;background:var(--brand);color:#fff;font-weight:700;border-radius:12px;height:48px;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px}
 .sh-new:active{background:var(--brand-lo)}
-#flightList{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 14px 14px;display:flex;flex-direction:column;gap:8px}
+#flightList{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 14px 10px;display:flex;flex-direction:column;gap:8px;flex:1}
 .fi{display:flex;align-items:stretch;background:rgba(30,41,59,.8);border:1px solid #334155;border-radius:12px;overflow:hidden}
 .fi.cur{border-color:var(--brand-hi)}
 .fi .open{flex:1;min-width:0;text-align:left;background:none;padding:10px 12px}
 .fi .open:active{background:rgba(51,65,85,.6)}
-.fi .l1{font-size:15px;font-weight:700;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.fi .l1{font-size:15px;font-weight:700;display:flex;align-items:center;flex-wrap:wrap;gap:6px}
 .fi .l2{font-size:12px;color:var(--muted);margin-top:3px}
 .fi .l3{font-size:11px;color:var(--dim);margin-top:3px}
+.fi .l4{margin-top:6px}
+.fi .l4 .tag{font-size:11px;padding:3px 9px}
 .fi .del{width:48px;background:none;color:var(--red);font-size:17px;border-left:1px solid #334155}
 .fi .del:active{background:rgba(251,113,133,.2)}
-.empty{color:var(--muted);text-align:center;padding:24px 8px;font-size:14px}
-
-/* SCF secimi */
-.scf{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.scf>span{font-size:13px;font-weight:700}
-.seg{display:flex;background:#020617;border:1px solid #334155;border-radius:10px;padding:3px;gap:3px}
-.seg button{min-height:40px;padding:0 14px;border-radius:8px;background:none;color:var(--muted);font-weight:600;font-size:14px}
-.seg button.on.yes{background:#059669;color:#fff}
-.seg button.on.no{background:#e11d48;color:#fff}
+.noflights{color:var(--muted);text-align:center;padding:24px 8px;font-size:14px}
+.sh-ft{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px 14px 12px;border-top:1px solid #1e293b}
+.sh-ft button{height:44px;border-radius:10px;background:#1e293b;color:var(--muted);font-size:13px;font-weight:600}
+.sh-ft button:active{background:#334155}
+#restoreBox{padding:0 14px 10px;display:none;gap:8px;flex-direction:column}
+#restoreBox.on{display:flex}
+#restoreBox textarea{font-size:16px}
+#restoreBox button{height:44px;border-radius:10px;background:var(--brand);color:#fff;font-weight:700}
 </style>
 </head>
 <body>
 
-<!-- Yerlesik ikonlar (internet gerektirmez) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
-  <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
-  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
-  <symbol id="i-fuel" viewBox="0 0 24 24"><path d="M3 22h12"/><path d="M4 9h10"/><path d="M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18"/><path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0V9.83a2 2 0 0 0-.59-1.42L18 5"/></symbol>
-  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
-  <symbol id="i-bag" viewBox="0 0 24 24"><rect x="5" y="6" width="14" height="14" rx="2"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M9 10v6"/><path d="M15 10v6"/></symbol>
-  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
-  <symbol id="i-access" viewBox="0 0 24 24"><circle cx="16" cy="4" r="1"/><path d="m18 19 1-7-6 1"/><path d="m5 8 3-3 5.5 3-2.36 3.5"/><path d="M4.24 14.5a5 5 0 0 0 6.88 6"/><path d="M13.76 17.5a5 5 0 0 0-6.88-6"/></symbol>
-  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="14" height="14" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
-  <symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></symbol>
   <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="14" height="14" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></symbol>
   <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></symbol>
-  <symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></symbol>
 </svg>
 
 <header>
@@ -201,179 +187,164 @@ input[type=time]::-webkit-calendar-picker-indicator{display:none}
       <div class="logo"><svg class="ic"><use href="#i-plane"/></svg></div>
       <div>
         <h1>Turnaround Log</h1>
-        <p>Harekat Takibi</p>
+        <p id="hdSub">Yeni uçuş</p>
       </div>
     </div>
-    <div class="hd-r">
-      <div class="clock" id="liveUtcClock">00:00:00 UTC</div>
-      <button class="reset" onclick="confirmReset()" aria-label="Bu uçuşun formunu temizle" title="Bu uçuşun formunu temizle"><svg class="ic"><use href="#i-reset"/></svg></button>
-    </div>
+    <div class="clock" id="liveUtcClock">00:00:00 UTC</div>
   </div>
 </header>
 
 <main>
-  <div class="card fbar">
-    <div class="fst">
-      <div class="t" id="fbarT">Açık uçuş</div>
-      <div class="n" id="fbarN">Yeni uçuş</div>
+
+  <!-- ANA BILGILER -->
+  <section class="card">
+    <div class="g2 row">
+      <div>
+        <label for="flightNo">Uçuş No</label>
+        <input type="text" id="flightNo" class="up big" placeholder="TK 1234" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" oninput="saveData()">
+      </div>
+      <div>
+        <label for="stand">Park Pozisyonu</label>
+        <input type="text" id="stand" class="up big" placeholder="204" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" oninput="saveData()">
+      </div>
     </div>
-    <button class="lbtn" onclick="openSheet()"><svg class="ic"><use href="#i-list"/></svg>Uçuşlar<span class="cnt" id="fcnt">0</span></button>
-  </div>
-  <div class="cols">
-
-    <!-- SOL -->
-    <div class="col">
-
-      <section class="card">
-        <h2 class="sec"><span class="l"><svg class="ic"><use href="#i-info"/></svg> Uçuş Bilgileri</span></h2>
-        <div class="g2">
-          <div>
-            <label for="flightNo">Uçuş No</label>
-            <input type="text" id="flightNo" class="up b" placeholder="TK 1234" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" oninput="saveData()">
-          </div>
-          <div>
-            <label for="registration">Tescil</label>
-            <input type="text" id="registration" class="up b" placeholder="TC-LSA" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" oninput="saveData()">
-          </div>
-          <div>
-            <label>Tip / Stand</label>
-            <div class="pair">
-              <input type="text" id="acType" class="up" placeholder="A321" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" oninput="saveData()">
-              <input type="text" id="stand" placeholder="204" autocomplete="off" autocorrect="off" spellcheck="false" oninput="saveData()">
-            </div>
-          </div>
-          <div>
-            <label>Parkur (ORG-DEST)</label>
-            <div class="pair">
-              <input type="text" id="origin" class="up" placeholder="IST" maxlength="4" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" oninput="saveData()">
-              <input type="text" id="destination" class="up" placeholder="AYT" maxlength="4" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" oninput="saveData()">
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="card stack">
-        <div>
-          <h2 class="sec"><span class="l"><svg class="ic"><use href="#i-fuel"/></svg> Yakıt (kg)</span></h2>
-          <div class="g2">
-            <div>
-              <label for="fuelRemaining">Kalan Yakıt</label>
-              <input type="number" inputmode="numeric" pattern="[0-9]*" id="fuelRemaining" class="mono b" placeholder="3200" oninput="saveData()">
-            </div>
-            <div>
-              <label for="fuelBlock">Block Yakıt</label>
-              <input type="number" inputmode="numeric" pattern="[0-9]*" id="fuelBlock" class="mono b green" placeholder="8500" oninput="saveData()">
-            </div>
-          </div>
-        </div>
-
-        <div class="sep">
-          <h2 class="sec"><span class="l"><svg class="ic"><use href="#i-users"/></svg> Yolcu Sayıları</span></h2>
-          <div class="g2">
-            <div>
-              <label for="paxInbound">Gelen Yolcu</label>
-              <input type="text" id="paxInbound" class="mono b" placeholder="180+2" autocomplete="off" oninput="saveData()">
-            </div>
-            <div>
-              <label for="paxOutbound">Giden Yolcu</label>
-              <input type="text" id="paxOutbound" class="mono b" placeholder="175+3" autocomplete="off" oninput="saveData()">
-            </div>
-          </div>
-        </div>
-
-        <div class="sep">
-          <h2 class="sec"><span class="l"><svg class="ic"><use href="#i-bag"/></svg> Bagaj</span></h2>
-          <div class="g2">
-            <div>
-              <label for="baggageInbound">Gelen Bagaj</label>
-              <input type="text" id="baggageInbound" class="mono b" placeholder="120 Pcs" autocomplete="off" oninput="saveData()">
-            </div>
-            <div>
-              <label for="baggageOutbound">Giden Bagaj</label>
-              <input type="text" id="baggageOutbound" class="mono b" placeholder="140 Pcs" autocomplete="off" oninput="saveData()">
-            </div>
-          </div>
-        </div>
-      </section>
-
+    <div class="g2 row">
+      <div>
+        <label for="paxInbound">Gelen Yolcu</label>
+        <input type="text" id="paxInbound" class="mono b" placeholder="180+2" autocomplete="off" oninput="saveData()">
+      </div>
+      <div>
+        <label for="paxOutbound">Giden Yolcu</label>
+        <input type="text" id="paxOutbound" class="mono b" placeholder="175+3" autocomplete="off" oninput="saveData()">
+      </div>
     </div>
-
-    <!-- SAG -->
-    <div class="col">
-
-      <section class="card">
-        <h2 class="sec">
-          <span class="l"><svg class="ic"><use href="#i-clock"/></svg> Turnaround Zamanları</span>
-          <small>Tüm zamanlar UTC</small>
-        </h2>
-        <div class="tg" id="timeGrid"></div>
-      </section>
-
-      <section class="card stack">
-        <div>
-          <h2 class="sec"><span class="l"><svg class="ic"><use href="#i-access"/></svg> Tekerlekli Sandalye (PRM)</span></h2>
-          <div class="pg" id="prmGrid"></div>
+    <div class="g2 row">
+      <div>
+        <label for="fuelRemaining">Kalan Yakıt (kg)</label>
+        <input type="number" inputmode="numeric" pattern="[0-9]*" id="fuelRemaining" class="mono b" placeholder="3200" oninput="saveData()">
+      </div>
+      <div>
+        <label>SCF</label>
+        <input type="hidden" id="scf" value="">
+        <div class="seg" role="group" aria-label="SCF durumu">
+          <button type="button" class="yes" data-scf="Girildi" onclick="setScf('Girildi')">Girildi</button>
+          <button type="button" class="no" data-scf="Girilmedi" onclick="setScf('Girilmedi')">Girilmedi</button>
         </div>
-        <div class="scf">
-          <span>SCF</span>
-          <input type="hidden" id="scf" value="">
-          <div class="seg" role="group" aria-label="SCF durumu">
-            <button type="button" class="yes" data-scf="Girildi" onclick="setScf('Girildi')">Girildi</button>
-            <button type="button" class="no" data-scf="Girilmedi" onclick="setScf('Girilmedi')">Girilmedi</button>
-          </div>
-        </div>
-        <div>
-          <label for="specialPax">Özel Yolcu Durumu (VIP, UM, DEPA vs.)</label>
-          <input type="text" id="specialPax" placeholder="1 VIP (Seat 1A), 2 UM" autocomplete="off" oninput="saveData()">
-        </div>
-        <div>
-          <label for="notes">Gecikme / Operasyon Notları</label>
-          <textarea id="notes" rows="3" placeholder="Gecikme nedenleri veya saha notları..." oninput="saveData()"></textarea>
-        </div>
-      </section>
-
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="acts">
-    <button class="save" onclick="saveAndNew()">
-      <svg class="ic"><use href="#i-save"/></svg>
-      <span>Kaydet ve Yeni Uçuş Aç</span>
-    </button>
-    <button class="copy alt" onclick="generateSummary()">
-      <svg class="ic"><use href="#i-copy"/></svg>
-      <span>Mesaj Özetini Kopyala (WhatsApp / SITA)</span>
-    </button>
-  </div>
+  <!-- SAATLER -->
+  <section class="card">
+    <h2 class="sec"><span>Saatler (UTC)</span><small id="secHint">Boş kutu: şimdi · Dolu kutu: düzenle</small></h2>
+    <div class="g3" id="timeGrid"></div>
+  </section>
+
+  <!-- PRM (tekerlekli sandalye) -->
+  <section class="card">
+    <h2 class="sec"><span>Tekerlekli Sandalye (PRM)</span></h2>
+    <div class="g3" id="prmGrid"></div>
+  </section>
+
+  <!-- DIGER DETAYLAR -->
+  <details class="more" id="more">
+    <summary><span>Diğer detaylar<span class="dot" id="moreDot"></span></span></summary>
+    <div class="mbody">
+      <div>
+        <label for="specialPax">Özel Yolcu (VIP, UM, DEPA vs.)</label>
+        <input type="text" id="specialPax" placeholder="1 VIP (Seat 1A), 2 UM" autocomplete="off" oninput="saveData()">
+      </div>
+      <div class="hr"></div>
+      <div class="g2">
+        <div>
+          <label for="registration">Tescil</label>
+          <input type="text" id="registration" class="up b" placeholder="TC-LSA" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" oninput="saveData()">
+        </div>
+        <div>
+          <label for="acType">Tip</label>
+          <input type="text" id="acType" class="up" placeholder="A321" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" oninput="saveData()">
+        </div>
+      </div>
+      <div>
+        <label>Parkur (ORG-DEST)</label>
+        <div class="pair">
+          <input type="text" id="origin" class="up" placeholder="IST" maxlength="4" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" oninput="saveData()">
+          <input type="text" id="destination" class="up" placeholder="AYT" maxlength="4" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" oninput="saveData()">
+        </div>
+      </div>
+      <div class="hr"></div>
+      <div class="g2">
+        <div>
+          <label for="fuelBlock">Block Yakıt (kg)</label>
+          <input type="number" inputmode="numeric" pattern="[0-9]*" id="fuelBlock" class="mono b green" placeholder="8500" oninput="saveData()">
+        </div>
+        <div></div>
+        <div>
+          <label for="baggageInbound">Gelen Bagaj</label>
+          <input type="text" id="baggageInbound" class="mono b" placeholder="120 Pcs" autocomplete="off" oninput="saveData()">
+        </div>
+        <div>
+          <label for="baggageOutbound">Giden Bagaj</label>
+          <input type="text" id="baggageOutbound" class="mono b" placeholder="140 Pcs" autocomplete="off" oninput="saveData()">
+        </div>
+      </div>
+      <div class="hr"></div>
+      <div>
+        <label for="notes">Gecikme / Operasyon Notları</label>
+        <textarea id="notes" rows="3" placeholder="Gecikme nedenleri veya saha notları..." oninput="saveData()"></textarea>
+      </div>
+      <button class="clear" onclick="confirmReset()">Bu uçuşun formunu temizle</button>
+    </div>
+  </details>
+
 </main>
+
+<!-- ALT CUBUK -->
+<nav id="bar">
+  <div class="in">
+    <button class="b-list" onclick="openSheet()"><svg class="ic"><use href="#i-list"/></svg>Uçuşlar<span class="cnt" id="fcnt">0</span></button>
+    <button class="b-copy" onclick="generateSummary()"><svg class="ic"><use href="#i-copy"/></svg>Kopyala</button>
+    <button class="b-save" onclick="saveAndNew()"><svg class="ic"><use href="#i-save"/></svg>Kaydet · Yeni</button>
+  </div>
+</nav>
+
+<div id="toast"><svg class="ic"><use href="#i-check"/></svg><span id="toastMsg">Tamam</span></div>
 
 <div id="sheetBg" onclick="closeSheet()"></div>
 <div id="sheet" role="dialog" aria-label="Kayıtlı uçuşlar">
   <div class="sh-h"><h3>Uçuşlar</h3><button class="sh-x" onclick="closeSheet()" aria-label="Kapat">✕</button></div>
   <button class="sh-new" onclick="newFlight()"><svg class="ic"><use href="#i-plus"/></svg>Yeni Uçuş</button>
   <div id="flightList"></div>
+  <div id="restoreBox">
+    <textarea id="restoreTxt" rows="3" placeholder="Kopyaladığın yedek metnini buraya yapıştır"></textarea>
+    <button onclick="doRestore()">Yedeği Yükle</button>
+  </div>
+  <div class="sh-ft">
+    <button onclick="backupCopy()">Yedeği kopyala</button>
+    <button onclick="toggleRestore()">Yedekten yükle</button>
+  </div>
 </div>
 
-<div id="toast"><svg class="ic"><use href="#i-check"/></svg><span id="toastMsg">Tamam</span></div>
-
 <script>
-/* ---------- Zaman alanlari ---------- */
+/* ---------- Saat kutulari ---------- */
 var timeFields = [
   {id:'time_touchdown',    label:'Touch Down'},
-  {id:'time_ata',         label:'ATA (In-Block)'},
-  {id:'time_board_start', label:'Boarding Başlangıç'},
-  {id:'time_board_end',   label:'Boarding Bitiş'},
+  {id:'time_ata',         label:'ATA'},
+  {id:'time_board_start', label:'Board Başl.'},
+  {id:'time_board_end',   label:'Board Bitiş'},
   {id:'time_door_close',  label:'Kapı Kapanış'},
-  {id:'time_atd',         label:'ATD (Off-Block)', end:true}
+  {id:'time_atd',         label:'ATD', end:true}
 ];
 document.getElementById('timeGrid').innerHTML = timeFields.map(function(f){
-  return '<div class="tb"><label for="'+f.id+'">'+f.label+'</label><div class="tr">'+
-    '<input type="time" id="'+f.id+'"'+(f.end?' class="end"':'')+' oninput="saveData()">'+
-    '<button class="now" onclick="setNowUtc(\''+f.id+'\')">Şimdi</button></div></div>';
+  return '<div class="tbox empty'+(f.end?' end':'')+'" id="box_'+f.id+'">'+
+    '<div class="tl">'+f.label+'</div><div class="tv" id="disp_'+f.id+'">--:--</div>'+
+    '<input type="time" id="'+f.id+'" aria-label="'+f.label+'" oninput="saveData()">'+
+    '<button class="tnow" onclick="setNowUtc(\''+f.id+'\')" aria-label="'+f.label+' şimdi"></button>'+
+    '<button class="tclr" onclick="clearTime(\''+f.id+'\')" aria-label="Temizle">✕</button></div>';
 }).join('');
 
-/* ---------- PRM sayaclari ---------- */
-var prmFields = [{id:'prm_wchr',label:'WCHR'},{id:'prm_wchs',label:'WCHS'},{id:'prm_wchc',label:'WCHC'}];
+/* ---------- PRM ---------- */
+var prmFields=[{id:'prm_wchr',label:'WCHR'},{id:'prm_wchs',label:'WCHS'},{id:'prm_wchc',label:'WCHC'}];
 document.getElementById('prmGrid').innerHTML = prmFields.map(function(f){
   return '<div class="pb"><span>'+f.label+'</span><div class="ct">'+
     '<button onclick="changeCounter(\''+f.id+'\',-1)" aria-label="Azalt">−</button>'+
@@ -385,29 +356,57 @@ document.getElementById('prmGrid').innerHTML = prmFields.map(function(f){
 function pad(n){return String(n).padStart(2,'0');}
 function updateUtcClock(){
   var d=new Date();
-  document.getElementById('liveUtcClock').textContent =
-    pad(d.getUTCHours())+':'+pad(d.getUTCMinutes())+':'+pad(d.getUTCSeconds())+' UTC';
+  document.getElementById('liveUtcClock').textContent=pad(d.getUTCHours())+':'+pad(d.getUTCMinutes())+':'+pad(d.getUTCSeconds())+' UTC';
 }
 setInterval(updateUtcClock,1000); updateUtcClock();
 
 function setNowUtc(id){
   var d=new Date(), t=pad(d.getUTCHours())+':'+pad(d.getUTCMinutes());
   var el=document.getElementById(id);
-  if(el){ el.value=t; saveData(); showToast('UTC: '+t); }
+  if(el){el.value=t; saveData(); showToast('UTC: '+t);}
+}
+function clearTime(id){var el=document.getElementById(id); if(el){el.value=''; saveData();}}
+function changeCounter(id,delta){
+  var el=document.getElementById(id); if(!el) return;
+  el.value=Math.max(0,(parseInt(el.value,10)||0)+delta); saveData();
+}
+function setScf(val){
+  var el=document.getElementById('scf');
+  el.value=(el.value===val)?'':val; saveData();
 }
 
-function changeCounter(id,delta){
-  var el=document.getElementById(id);
-  if(!el) return;
-  el.value=Math.max(0,(parseInt(el.value,10)||0)+delta);
-  saveData();
+/* yerde kalis (ATA -> ATD), gece yarisini asarsa da dogru */
+function toMin(t){if(!t||t.indexOf(':')<0) return null; var a=t.split(':'); return (+a[0])*60+(+a[1]);}
+function turnMins(d){
+  var a=toMin(d&&d.time_ata), b=toMin(d&&d.time_atd);
+  if(a===null||b===null||isNaN(a)||isNaN(b)) return null;
+  return (b-a+1440)%1440;
+}
+function fmtMins(m){return m>=60?(Math.floor(m/60)+' sa '+pad(m%60)+' dk'):(m+' dk');}
+
+/* ---------- Ekrani form degerlerine gore tazele ---------- */
+var hiddenIds=['specialPax','registration','acType','origin','destination','fuelBlock','baggageInbound','baggageOutbound','notes'];
+function refreshUI(){
+  timeFields.forEach(function(f){
+    var v=document.getElementById(f.id).value;
+    document.getElementById('disp_'+f.id).textContent=v||'--:--';
+    document.getElementById('box_'+f.id).classList.toggle('empty',!v);
+  });
+  var cur=document.getElementById('scf').value;
+  document.querySelectorAll('[data-scf]').forEach(function(b){
+    var on=b.getAttribute('data-scf')===cur;
+    b.classList.toggle('on',on); b.setAttribute('aria-pressed',on?'true':'false');
+  });
+  var m=turnMins(readForm());
+  document.getElementById('secHint').innerHTML=(m===null)?'Boş kutu: şimdi · Dolu kutu: düzenle':('Yerde kalış: <b>'+fmtMins(m)+'</b>');
+  var has=hiddenIds.some(function(id){return String(document.getElementById(id).value||'').trim()!=='';});
+  document.getElementById('moreDot').classList.toggle('on',has);
 }
 
 /* ---------- Ucus kayitlari ---------- */
 var fieldIds=[
   'flightNo','registration','acType','stand','origin','destination',
-  'time_touchdown','time_ata','scf',
-  'time_board_start','time_board_end','time_door_close','time_atd',
+  'time_touchdown','time_ata','scf','time_board_start','time_board_end','time_door_close','time_atd',
   'fuelRemaining','fuelBlock','paxInbound','paxOutbound','baggageInbound','baggageOutbound',
   'prm_wchr','prm_wchs','prm_wchc','specialPax','notes'
 ];
@@ -416,18 +415,9 @@ var store={active:null,flights:[]};
 
 function isPrm(id){return id.indexOf('prm_')===0;}
 function readForm(){var d={};fieldIds.forEach(function(id){var el=document.getElementById(id); if(el) d[id]=el.value;});return d;}
-function writeForm(d){fieldIds.forEach(function(id){var el=document.getElementById(id); if(el) el.value=(d&&d[id]!==undefined)?d[id]:(isPrm(id)?'0':'');}); syncScf();}
-function syncScf(){
-  var cur=document.getElementById('scf').value;
-  document.querySelectorAll('[data-scf]').forEach(function(b){
-    b.classList.toggle('on', b.getAttribute('data-scf')===cur);
-    b.setAttribute('aria-pressed', b.getAttribute('data-scf')===cur ? 'true':'false');
-  });
-}
-function setScf(val){
-  var el=document.getElementById('scf');
-  el.value=(el.value===val)?'':val;   /* ayni secime tekrar basinca secim kalkar */
-  syncScf(); saveData();
+function writeForm(d){
+  fieldIds.forEach(function(id){var el=document.getElementById(id); if(el) el.value=(d&&d[id]!==undefined)?d[id]:(isPrm(id)?'0':'');});
+  refreshUI();
 }
 function isBlank(d){return fieldIds.every(function(id){var v=String((d&&d[id])||'').trim(); return isPrm(id)?(v===''||v==='0'):v==='';});}
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
@@ -439,18 +429,17 @@ function pruneBlank(keepId){store.flights=store.flights.filter(function(f){retur
 function esc(t){return String(t).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 
 function saveData(){
+  refreshUI();
   var f=getActive(); if(!f) return;
   f.data=readForm(); f.updated=Date.now();
   persist(); renderBar();
 }
-
 function loadData(){
   var raw=null;
   try{raw=localStorage.getItem(KEY);}catch(e){}
   if(raw){
     try{var st=JSON.parse(raw); if(st&&Array.isArray(st.flights)) store=st;}catch(e){}
   }else{
-    /* eski tek-ucus verisini ilk kayit olarak al */
     var old=null;
     try{old=JSON.parse(localStorage.getItem(OLD)||'null');}catch(e){}
     if(old&&!isBlank(old)){var of=makeFlight(old); store.flights.push(of); store.active=of.id;}
@@ -460,81 +449,67 @@ function loadData(){
   persist(); renderBar();
 }
 
-function scfTag(v){
-  if(v==='Girildi') return '<span class="tag scfy">SCF ✓ Girildi</span>';
-  if(v==='Girilmedi') return '<span class="tag scfn">SCF ✗ Girilmedi</span>';
-  return '<span class="tag scfu">SCF ? Seçilmedi</span>';
-}
 function flightTitle(d){return (String(d.flightNo||'').trim().toUpperCase())||'Adsız uçuş';}
 function flightRoute(d){
   var o=String(d.origin||'').trim().toUpperCase(), t=String(d.destination||'').trim().toUpperCase();
   var r=(o||t)?(o||'?')+' → '+(t||'?'):'';
-  var reg=String(d.registration||'').trim().toUpperCase();
-  return [r,reg].filter(Boolean).join(' · ');
+  var st=String(d.stand||'').trim().toUpperCase();
+  return [r,st?('Park '+st):''].filter(Boolean).join(' · ');
 }
 function fmtDate(ts){
   try{return new Date(ts).toLocaleString('tr-TR',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});}
   catch(e){return new Date(ts).toISOString().slice(0,16).replace('T',' ');}
 }
+function scfTag(v){
+  if(v==='Girildi') return '<span class="tag scfy">SCF ✓ Girildi</span>';
+  if(v==='Girilmedi') return '<span class="tag scfn">SCF ✗ Girilmedi</span>';
+  return '<span class="tag scfu">SCF ? Seçilmedi</span>';
+}
 function shownFlights(){return store.flights.filter(function(f){return f.id===store.active||!isBlank(f.data);});}
 
 function renderBar(){
   var f=getActive(); if(!f) return;
-  var list=shownFlights();
-  document.getElementById('fcnt').textContent=list.length;
+  document.getElementById('fcnt').textContent=shownFlights().length;
   var blank=isBlank(f.data);
-  document.getElementById('fbarT').innerHTML=(f.saved?'Kayıtlı uçuşu düzenliyorsun':(blank?'Yeni uçuş':'Taslak'));
-  document.getElementById('fbarN').textContent=blank?'Bilgileri gir':(flightTitle(f.data)+(flightRoute(f.data)?'  ·  '+flightRoute(f.data):''));
+  var state=f.saved?'Kayıtlı uçuş':(blank?'Yeni uçuş':'Taslak');
+  document.getElementById('hdSub').textContent=blank?state:(state+' · '+flightTitle(f.data));
 }
-
 function renderList(){
   var list=shownFlights().slice().sort(function(a,b){return b.created-a.created;});
   var box=document.getElementById('flightList');
-  if(!list.length){box.innerHTML='<div class="empty">Henüz kayıtlı uçuş yok.</div>';return;}
+  if(!list.length){box.innerHTML='<div class="noflights">Henüz kayıtlı uçuş yok.</div>';return;}
   box.innerHTML=list.map(function(f){
-    var d=f.data, cur=f.id===store.active;
-    var times=[];
+    var d=f.data, cur=f.id===store.active, times=[];
     if(d.time_ata) times.push('ATA '+esc(d.time_ata));
     if(d.time_atd) times.push('ATD '+esc(d.time_atd));
+    var m=turnMins(d); if(m!==null) times.push('yerde '+fmtMins(m));
     var tags=(cur?'<span class="tag open">AÇIK</span>':'')+(f.saved?'<span class="tag saved">KAYITLI</span>':'<span class="tag draft">TASLAK</span>');
     return '<div class="fi'+(cur?' cur':'')+'">'+
       '<button class="open" data-open="'+f.id+'"><div class="l1">'+esc(flightTitle(d))+tags+'</div>'+
       (flightRoute(d)?'<div class="l2">'+esc(flightRoute(d))+'</div>':'')+
-      '<div class="l3">'+esc(fmtDate(f.created))+(times.length?'  ·  '+times.join('  '):'')+'</div>'+
+      '<div class="l3">'+esc(fmtDate(f.created))+(times.length?'  ·  '+times.join('  ·  '):'')+'</div>'+
       '<div class="l4">'+scfTag(d.scf)+'</div></button>'+
       '<button class="del" data-del="'+f.id+'" aria-label="Sil"><svg class="ic"><use href="#i-trash"/></svg></button></div>';
   }).join('');
 }
 document.getElementById('flightList').addEventListener('click',function(e){
   var o=e.target.closest('[data-open]'), x=e.target.closest('[data-del]');
-  if(o) openFlight(o.getAttribute('data-open'));
-  else if(x) deleteFlight(x.getAttribute('data-del'));
+  if(o) openFlight(o.getAttribute('data-open')); else if(x) deleteFlight(x.getAttribute('data-del'));
 });
 
-function openSheet(){saveData(); renderList(); document.getElementById('sheetBg').classList.add('on'); document.getElementById('sheet').classList.add('on'); document.body.style.overflow='hidden';}
+function openSheet(){saveData(); renderList(); document.getElementById('restoreBox').classList.remove('on'); document.getElementById('sheetBg').classList.add('on'); document.getElementById('sheet').classList.add('on'); document.body.style.overflow='hidden';}
 function closeSheet(){document.getElementById('sheetBg').classList.remove('on'); document.getElementById('sheet').classList.remove('on'); document.body.style.overflow='';}
-
-function activate(f){
-  store.active=f.id; pruneBlank(f.id);
-  writeForm(f.data); persist(); renderBar();
-  window.scrollTo(0,0);
-}
+function activate(f){store.active=f.id; pruneBlank(f.id); writeForm(f.data); persist(); renderBar(); window.scrollTo(0,0);}
 function openFlight(id){
-  saveData();
-  var f=getFlight(id); if(!f) return;
-  activate(f); closeSheet();
-  showToast('Uçuş açıldı: '+flightTitle(f.data));
+  saveData(); var f=getFlight(id); if(!f) return;
+  activate(f); closeSheet(); showToast('Uçuş açıldı: '+flightTitle(f.data));
 }
-function startBlank(){
-  var nf=makeFlight(); store.flights.push(nf);
-  activate(nf);
-}
+function startBlank(){var nf=makeFlight(); store.flights.push(nf); activate(nf);}
 function saveAndNew(){
   var d=readForm();
   if(isBlank(d)){showToast('Önce uçuş bilgilerini gir'); return;}
   var f=getActive(); f.data=d; f.saved=true; f.savedAt=Date.now(); f.updated=Date.now();
-  startBlank();
-  showToast('Kaydedildi · yeni uçuş açıldı');
+  startBlank(); showToast('Kaydedildi · yeni uçuş açıldı');
 }
 function newFlight(){
   saveData();
@@ -553,17 +528,39 @@ function deleteFlight(id){
   persist(); renderBar(); renderList();
 }
 function confirmReset(){
-  if(confirm('Bu uçuşun formunu temizlemek istiyor musunuz?')){
-    writeForm({}); saveData(); showToast('Form temizlendi');
-  }
+  if(confirm('Bu uçuşun formunu temizlemek istiyor musunuz?')){writeForm({}); saveData(); showToast('Form temizlendi');}
+}
+
+/* ---------- Yedekleme (panoya kopyala / yapistir) ---------- */
+var BK='TURNAROUND-YEDEK:';
+function backupCopy(){
+  saveData();
+  var list=shownFlights();
+  copyText(BK+JSON.stringify({v:1,flights:list}), list.length+' uçuşluk yedek kopyalandı');
+}
+function toggleRestore(){document.getElementById('restoreBox').classList.toggle('on');}
+function doRestore(){
+  var txt=document.getElementById('restoreTxt').value.trim();
+  if(txt.indexOf(BK)===0) txt=txt.slice(BK.length);
+  var obj=null;
+  try{obj=JSON.parse(txt);}catch(e){}
+  if(!obj||!Array.isArray(obj.flights)){showToast('Yedek metni okunamadı'); return;}
+  var added=0;
+  obj.flights.forEach(function(f){
+    if(f&&f.id&&f.data&&!getFlight(f.id)){store.flights.push(f); added++;}
+  });
+  persist(); renderBar(); renderList();
+  document.getElementById('restoreTxt').value=''; document.getElementById('restoreBox').classList.remove('on');
+  showToast(added+' uçuş geri yüklendi');
 }
 
 /* ---------- Ozet / kopyala ---------- */
 function generateSummary(){
-  var UP=['flightNo','registration','acType','origin','destination'];
+  var UP=['flightNo','registration','acType','origin','destination','stand'];
   var v=function(id){var el=document.getElementById(id); var x=(el&&el.value.trim())||'-'; return UP.indexOf(id)>-1?x.toUpperCase():x;};
   var d=new Date();
   var stamp=d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate())+' '+pad(d.getUTCHours())+':'+pad(d.getUTCMinutes());
+  var m=turnMins(readForm());
   var s=
 '✈️ *TURNAROUND LOG ÖZETİ (UTC)*\n'+
 '----------------------------------\n'+
@@ -575,7 +572,8 @@ function generateSummary(){
 '• ATA (In-Block): '+v('time_ata')+'\n'+
 '• Boarding: '+v('time_board_start')+' - '+v('time_board_end')+'\n'+
 '• Kapı Kapanış: '+v('time_door_close')+'\n'+
-'• ATD (Off-Block): '+v('time_atd')+'\n\n'+
+'• ATD (Off-Block): '+v('time_atd')+'\n'+
+'• Yerde Kalış: '+(m===null?'-':fmtMins(m))+'\n\n'+
 '⛽ *YAKIT BİLGİSİ*\n'+
 '• Kalan Yakıt: '+v('fuelRemaining')+' kg\n'+
 '• Block Yakıt: '+v('fuelBlock')+' kg\n\n'+
@@ -590,10 +588,9 @@ function generateSummary(){
 v('notes')+'\n'+
 '----------------------------------\n'+
 'Rapor: '+stamp+' UTC';
-  copyText(s);
+  copyText(s,'Özet kopyalandı!');
 }
-
-function fallbackCopy(text){
+function fallbackCopy(text,msg){
   var ta=document.createElement('textarea');
   ta.value=text; ta.setAttribute('readonly','');
   ta.style.cssText='position:fixed;top:0;left:0;opacity:0;font-size:16px';
@@ -602,12 +599,12 @@ function fallbackCopy(text){
   var ok=false;
   try{ok=document.execCommand('copy');}catch(e){}
   document.body.removeChild(ta);
-  showToast(ok?'Özet kopyalandı!':'Kopyalama başarısız');
+  showToast(ok?msg:'Kopyalama başarısız');
 }
-function copyText(text){
+function copyText(text,msg){
   if(navigator.clipboard && window.isSecureContext){
-    navigator.clipboard.writeText(text).then(function(){showToast('Özet kopyalandı!');},function(){fallbackCopy(text);});
-  }else{ fallbackCopy(text); }
+    navigator.clipboard.writeText(text).then(function(){showToast(msg);},function(){fallbackCopy(text,msg);});
+  }else{fallbackCopy(text,msg);}
 }
 
 /* ---------- Toast ---------- */
@@ -615,14 +612,11 @@ var toastTimer;
 function showToast(msg){
   var t=document.getElementById('toast');
   document.getElementById('toastMsg').textContent=msg;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
+  t.classList.add('show'); clearTimeout(toastTimer);
   toastTimer=setTimeout(function(){t.classList.remove('show');},2000);
 }
 
 window.addEventListener('load',loadData);
-
-/* Barindirilirsa (https) cevrimdisi calissin */
 if('serviceWorker' in navigator && /^https?:$/.test(location.protocol)){
   window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});
 }
