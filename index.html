@@ -126,6 +126,11 @@ input[type=time]::-webkit-calendar-picker-indicator{display:none}
 .tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;vertical-align:middle;margin-left:6px;letter-spacing:.03em}
 .tag.draft{background:rgba(251,191,36,.15);color:var(--amber)}
 .tag.saved{background:rgba(52,211,153,.15);color:var(--green)}
+.tag.scfy{background:rgba(52,211,153,.15);color:var(--green)}
+.tag.scfn{background:rgba(251,113,133,.18);color:var(--red)}
+.tag.scfu{background:rgba(148,163,184,.15);color:var(--muted)}
+.fi .l4{margin-top:6px}
+.fi .l4 .tag{margin-left:0;font-size:11px;padding:3px 9px}
 .tag.open{background:rgba(56,189,248,.18);color:var(--brand-txt)}
 .lbtn{position:relative;background:#334155;color:var(--text);border-radius:10px;padding:0 12px;min-height:44px;font-weight:600;font-size:13px;display:flex;align-items:center;gap:6px;flex-shrink:0}
 .lbtn:active{background:#475569}
@@ -160,6 +165,14 @@ input[type=time]::-webkit-calendar-picker-indicator{display:none}
 .fi .del{width:48px;background:none;color:var(--red);font-size:17px;border-left:1px solid #334155}
 .fi .del:active{background:rgba(251,113,133,.2)}
 .empty{color:var(--muted);text-align:center;padding:24px 8px;font-size:14px}
+
+/* SCF secimi */
+.scf{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.scf>span{font-size:13px;font-weight:700}
+.seg{display:flex;background:#020617;border:1px solid #334155;border-radius:10px;padding:3px;gap:3px}
+.seg button{min-height:40px;padding:0 14px;border-radius:8px;background:none;color:var(--muted);font-weight:600;font-size:14px}
+.seg button.on.yes{background:#059669;color:#fff}
+.seg button.on.no{background:#e11d48;color:#fff}
 </style>
 </head>
 <body>
@@ -301,6 +314,14 @@ input[type=time]::-webkit-calendar-picker-indicator{display:none}
           <h2 class="sec"><span class="l"><svg class="ic"><use href="#i-access"/></svg> Tekerlekli Sandalye (PRM)</span></h2>
           <div class="pg" id="prmGrid"></div>
         </div>
+        <div class="scf">
+          <span>SCF</span>
+          <input type="hidden" id="scf" value="">
+          <div class="seg" role="group" aria-label="SCF durumu">
+            <button type="button" class="yes" data-scf="Girildi" onclick="setScf('Girildi')">Girildi</button>
+            <button type="button" class="no" data-scf="Girilmedi" onclick="setScf('Girilmedi')">Girilmedi</button>
+          </div>
+        </div>
         <div>
           <label for="specialPax">Özel Yolcu Durumu (VIP, UM, DEPA vs.)</label>
           <input type="text" id="specialPax" placeholder="1 VIP (Seat 1A), 2 UM" autocomplete="off" oninput="saveData()">
@@ -338,8 +359,8 @@ input[type=time]::-webkit-calendar-picker-indicator{display:none}
 <script>
 /* ---------- Zaman alanlari ---------- */
 var timeFields = [
+  {id:'time_touchdown',    label:'Touch Down'},
   {id:'time_ata',         label:'ATA (In-Block)'},
-  {id:'time_deboard_end', label:'Deboard Bitiş'},
   {id:'time_board_start', label:'Boarding Başlangıç'},
   {id:'time_board_end',   label:'Boarding Bitiş'},
   {id:'time_door_close',  label:'Kapı Kapanış'},
@@ -385,7 +406,7 @@ function changeCounter(id,delta){
 /* ---------- Ucus kayitlari ---------- */
 var fieldIds=[
   'flightNo','registration','acType','stand','origin','destination',
-  'time_ata','time_deboard_end',
+  'time_touchdown','time_ata','scf',
   'time_board_start','time_board_end','time_door_close','time_atd',
   'fuelRemaining','fuelBlock','paxInbound','paxOutbound','baggageInbound','baggageOutbound',
   'prm_wchr','prm_wchs','prm_wchc','specialPax','notes'
@@ -395,7 +416,19 @@ var store={active:null,flights:[]};
 
 function isPrm(id){return id.indexOf('prm_')===0;}
 function readForm(){var d={};fieldIds.forEach(function(id){var el=document.getElementById(id); if(el) d[id]=el.value;});return d;}
-function writeForm(d){fieldIds.forEach(function(id){var el=document.getElementById(id); if(el) el.value=(d&&d[id]!==undefined)?d[id]:(isPrm(id)?'0':'');});}
+function writeForm(d){fieldIds.forEach(function(id){var el=document.getElementById(id); if(el) el.value=(d&&d[id]!==undefined)?d[id]:(isPrm(id)?'0':'');}); syncScf();}
+function syncScf(){
+  var cur=document.getElementById('scf').value;
+  document.querySelectorAll('[data-scf]').forEach(function(b){
+    b.classList.toggle('on', b.getAttribute('data-scf')===cur);
+    b.setAttribute('aria-pressed', b.getAttribute('data-scf')===cur ? 'true':'false');
+  });
+}
+function setScf(val){
+  var el=document.getElementById('scf');
+  el.value=(el.value===val)?'':val;   /* ayni secime tekrar basinca secim kalkar */
+  syncScf(); saveData();
+}
 function isBlank(d){return fieldIds.every(function(id){var v=String((d&&d[id])||'').trim(); return isPrm(id)?(v===''||v==='0'):v==='';});}
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
 function newId(){return 'f'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
@@ -427,6 +460,11 @@ function loadData(){
   persist(); renderBar();
 }
 
+function scfTag(v){
+  if(v==='Girildi') return '<span class="tag scfy">SCF ✓ Girildi</span>';
+  if(v==='Girilmedi') return '<span class="tag scfn">SCF ✗ Girilmedi</span>';
+  return '<span class="tag scfu">SCF ? Seçilmedi</span>';
+}
 function flightTitle(d){return (String(d.flightNo||'').trim().toUpperCase())||'Adsız uçuş';}
 function flightRoute(d){
   var o=String(d.origin||'').trim().toUpperCase(), t=String(d.destination||'').trim().toUpperCase();
@@ -462,7 +500,8 @@ function renderList(){
     return '<div class="fi'+(cur?' cur':'')+'">'+
       '<button class="open" data-open="'+f.id+'"><div class="l1">'+esc(flightTitle(d))+tags+'</div>'+
       (flightRoute(d)?'<div class="l2">'+esc(flightRoute(d))+'</div>':'')+
-      '<div class="l3">'+esc(fmtDate(f.created))+(times.length?'  ·  '+times.join('  '):'')+'</div></button>'+
+      '<div class="l3">'+esc(fmtDate(f.created))+(times.length?'  ·  '+times.join('  '):'')+'</div>'+
+      '<div class="l4">'+scfTag(d.scf)+'</div></button>'+
       '<button class="del" data-del="'+f.id+'" aria-label="Sil"><svg class="ic"><use href="#i-trash"/></svg></button></div>';
   }).join('');
 }
@@ -532,8 +571,8 @@ function generateSummary(){
 '*Tip:* '+v('acType')+' | *Park:* '+v('stand')+'\n'+
 '*Parkur:* '+v('origin')+' ➡️ '+v('destination')+'\n\n'+
 '⏱️ *ZAMAN ÇİZELGESİ (UTC)*\n'+
+'• Touch Down: '+v('time_touchdown')+'\n'+
 '• ATA (In-Block): '+v('time_ata')+'\n'+
-'• Deboard Bitiş: '+v('time_deboard_end')+'\n'+
 '• Boarding: '+v('time_board_start')+' - '+v('time_board_end')+'\n'+
 '• Kapı Kapanış: '+v('time_door_close')+'\n'+
 '• ATD (Off-Block): '+v('time_atd')+'\n\n'+
@@ -545,6 +584,7 @@ function generateSummary(){
 '• Gelen Bagaj: '+v('baggageInbound')+' | Giden Bagaj: '+v('baggageOutbound')+'\n\n'+
 '♿ *ÖZEL HİZMET & BİLGİLER*\n'+
 '• PRM: WCHR:'+v('prm_wchr')+' | WCHS:'+v('prm_wchs')+' | WCHC:'+v('prm_wchc')+'\n'+
+'• SCF: '+v('scf')+'\n'+
 '• Özel Yolcu: '+v('specialPax')+'\n\n'+
 '📝 *NOTLAR:*\n'+
 v('notes')+'\n'+
